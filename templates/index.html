@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volleyball Auction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+        }
+        .teams {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .team {
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Volleyball Auction System</h1>
+    <h2>Register Player</h2>
+    <form id="registerForm">
+        <input type="text" id="playerName" placeholder="Player Name" required>
+        <input type="number" id="minBid" placeholder="Minimum Bid" required>
+        <button type="submit">Register Player</button>
+    </form>
+    <h2>Place Bid</h2>
+    <form id="bidForm">
+        <select id="teamName" required>
+            <option value="">Select Team</option>
+            <option value="Team A">Team A</option>
+            <option value="Team B">Team B</option>
+            <option value="Team C">Team C</option>
+            <option value="Team D">Team D</option>
+        </select>
+        <input type="text" id="bidPlayerName" placeholder="Player Name" required>
+        <input type="number" id="bidAmount" placeholder="Bid Amount" required>
+        <button type="submit">Place Bid</button>
+    </form>
+    <h2>Teams</h2>
+    <div class="teams" id="teamsDisplay"></div>
+
+    <script>
+        // Register player
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('playerName').value;
+            const minBid = document.getElementById('minBid').value;
+            const response = await fetch('/register_player', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, min_bid: minBid })
+            });
+            const result = await response.json();
+            alert(result.message);
+        });
+
+        // Place bid
+        document.getElementById('bidForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const team = document.getElementById('teamName').value;
+            const playerName = document.getElementById('bidPlayerName').value;
+            const bid = document.getElementById('bidAmount').value;
+            const response = await fetch('/place_bid', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ team, player_name: playerName, bid })
+            });
+            const result = await response.json();
+            alert(result.message);
+            displayTeams();
+        });
+
+        // Display teams
+        async function displayTeams() {
+            const response = await fetch('/get_teams');
+            const data = await response.json();
+            const teamsDiv = document.getElementById('teamsDisplay');
+            teamsDiv.innerHTML = '';
+            for (const [team, players] of Object.entries(data.teams)) {
+                const teamDiv = document.createElement('div');
+                teamDiv.className = 'team';
+                teamDiv.innerHTML = `<h3>${team}</h3><p>${players.length ? players.join(', ') : 'No players yet'}</p>`;
+                teamsDiv.appendChild(teamDiv);
+            }
+        }
+
+        // Initial display
+        displayTeams();
+    </script>
+</body>
+</html>
