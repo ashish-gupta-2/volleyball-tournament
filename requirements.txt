@@ -5,7 +5,7 @@ aiofiles==24.1.0
 aiohttp==3.9.5
 aioitertools==0.11.0
 aiosignal==1.3.1
-aiosqlite @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_13w97vul7u/croot/aiosqlite_1683773912122/work
+aiosqlite==0.20.0
 alabaster @ file:///home/ktietz/src/ci/alabaster_1611921544520/work
 altair==5.2.0
 anaconda-anon-usage @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_2c907yrj_5/croot/anaconda-anon-usage_1695305100095/work
@@ -149,8 +149,7 @@ hyperlink @ file:///tmp/build/80754af9/hyperlink_1610130746837/work
 ibm-cos-sdk==2.13.5
 ibm-cos-sdk-core==2.13.5
 ibm-cos-sdk-s3transfer==2.13.5
-# Editable install with no version control (ibm-ocp-appsim-cli==0.2)
--e git+https://github.com/ashish-gupta-2/cli-script.git#egg=cli-script
+-e git+https://github.com/ashish-gupta-2/cli-script.git@e6ecf58f08c713459f5c2cda6300bbecb7193414#egg=ibm_ocp_appsim_cli
 ibm-watsonx-ai==0.1.8
 ibm_watson_machine_learning==1.0.360
 idna==3.7
