@@ -150,7 +150,7 @@ ibm-cos-sdk==2.13.5
 ibm-cos-sdk-core==2.13.5
 ibm-cos-sdk-s3transfer==2.13.5
 # Editable install with no version control (ibm-ocp-appsim-cli==0.2)
--e /Users/ashishgupta/Desktop/work/fusion/ocpappsim-main/cli-script
+-e git+https://github.com/ashish-gupta-2/cli-script.git#egg=cli-script
 ibm-watsonx-ai==0.1.8
 ibm_watson_machine_learning==1.0.360
 idna==3.7
